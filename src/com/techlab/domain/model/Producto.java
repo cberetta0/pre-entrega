@@ -44,13 +44,17 @@ public class Producto {
     this.stock = stock;
   }
 
+  public static boolean isValidId(int id){
+    return id <= contador;
+  }
+
   @Override
   public String toString() {
     return """
-       Producto %d:
-        -Nombre: %s
-        -Precio: $%.2f
-        -Stock: %d
+    Producto #%d:
+      -Nombre: %s
+      -Precio: $%.2f
+      -Stock: %d
     """.formatted(id, nombre, precio, stock);
   }
 }

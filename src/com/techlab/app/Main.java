@@ -10,23 +10,8 @@ public class Main {
 
     Scanner scanner = new Scanner(System.in);
 
-    System.out.println("""
-        ====================================
-        === SISTEMA DE GESTION - TECHLAB ===
-        ====================================
-      """);
-    
-    System.out.println("""
-      1) Agregar producto
-      2) Listar productos
-      3) Buscar/Actualizar producto
-      4) Eliminar producto
-      5) Crear un pedido
-      6) Listar pedidos
-      7) Salir
-    """);
+    printMenu();
 
-    System.out.print("Elija una opcion: ");
     int opcion = scanner.nextInt();
     
     while(opcion != 7){
@@ -37,11 +22,32 @@ public class Main {
         manejarOpcion(opcion);
       }
 
-      System.out.print("Elija una opcion: ");
+      printMenu();
       opcion = scanner.nextInt();
     }
 
     System.exit(0);
+  }
+
+  private static void printMenu(){
+
+    System.out.println("""
+      ====================================
+      === SISTEMA DE GESTION - TECHLAB ===
+      ====================================
+      """);
+
+    System.out.println("""
+    1) Agregar producto
+    2) Listar productos
+    3) Buscar/Actualizar producto
+    4) Eliminar producto
+    5) Crear un pedido
+    6) Listar pedidos
+    7) Salir
+    """);
+
+    System.out.print("Elija una opcion: ");
   }
 
   private static void manejarOpcion(int opcion) {

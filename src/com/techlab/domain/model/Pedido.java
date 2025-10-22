@@ -16,6 +16,7 @@ public class Pedido {
   }
 
   public void agregarProducto(Producto producto, int cantidad){
+    if(producto.getStock() < cantidad) throw new RuntimeException("No hay suficiente stock de " + producto.getNombre());
     lineasPedido.add(new LineaPedido(producto, cantidad));
   }
 
@@ -25,5 +26,13 @@ public class Pedido {
       total += linea.getSubtotal();
     }
     return total;
+  }
+
+  public void printPedido(){
+    System.out.println("Pedido #" + id);
+    for(LineaPedido linea: lineasPedido){
+      System.out.println("  -" + linea.getProducto().getNombre() + ", " + linea.getCantidad() + " unidades");
+    }
+    System.out.println("Total de: $" + calcularTotal());
   }
 }

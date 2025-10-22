@@ -1,6 +1,7 @@
 package com.techlab.domain.services;
 
 import com.techlab.domain.model.Producto;
+import com.techlab.domain.utils.Utils;
 import com.techlab.repository.ProductoRepository;
 import java.util.Scanner;
 
@@ -25,37 +26,51 @@ public class ProductoService {
     System.out.print("Stock: ");
     stock = scanner.nextInt();
 
-    Producto producto = new Producto(nombre, precio, stock);
+    Producto producto = new Producto(Utils.formatearNombreProducto(nombre), precio, stock);
 
     repositorio.agregar(producto);
 
-    System.out.println("Producto agregado con exito!");
+    System.out.println("Producto agregado con exito!\n");
   }
 
   public void listar(){
     repositorio.listar();
   }
 
-  public Producto buscar(){
-    return new Producto("", 23, 23);
+  public void buscar(){
+    String nombreOId;
+    Producto producto;
+
+    System.out.print("Ingrese el nombre o ID del producto que desea buscar: ");
+    nombreOId = scanner.nextLine();
+
+    try {
+      int id = Integer.parseInt(nombreOId);
+      producto = repositorio.buscarProducto(id);
+    } catch (NumberFormatException e) {
+      producto = repositorio.buscarProducto(nombreOId);
+    }
+
+    System.out.println(producto);
   }
 
   public void eliminar(){
     int id;
     Producto producto;
-    boolean eliminar;
+    String eliminar;
 
-    System.out.println("Ingrese el id del producto a eliminar: ");
+    System.out.print("Ingrese el id del producto a eliminar: ");
     id = scanner.nextInt();
 
     producto = repositorio.buscarProducto(id);
-    System.out.println("Esta seguro que desea eliminar " + producto.getNombre() + "? true o false");
-    eliminar = scanner.nextBoolean();
+    System.out.println("Esta seguro que desea eliminar " + producto.getNombre() + "? si/no");
+    eliminar = scanner.nextLine();
 
-    if(eliminar){
+    if(eliminar.equalsIgnoreCase("si")){
       repositorio.eliminar(id);
+      System.out.println(producto.getNombre() + " eliminado con exito/n");
     } else {
-      System.out.println("Operacion cancelada");
+      System.out.println("Operacion cancelada\n");
     }
   }
 }
