@@ -22,9 +22,11 @@ public class ProductoService {
 
     System.out.print("Precio: ");
     precio = scanner.nextDouble();
+    scanner.nextLine();
 
     System.out.print("Stock: ");
     stock = scanner.nextInt();
+    scanner.nextLine();
 
     Producto producto = new Producto(Utils.formatearNombreProducto(nombre), precio, stock);
 
@@ -51,7 +53,11 @@ public class ProductoService {
       producto = repositorio.buscarProducto(nombreOId);
     }
 
-    System.out.println(producto);
+    if (producto == null) {
+      System.out.println("No se encontró ningún producto con ese identificador.");
+    } else {
+      System.out.println(producto);
+    }
   }
 
   public void eliminar(){
@@ -61,14 +67,15 @@ public class ProductoService {
 
     System.out.print("Ingrese el id del producto a eliminar: ");
     id = scanner.nextInt();
+    scanner.nextLine();
 
     producto = repositorio.buscarProducto(id);
-    System.out.println("Esta seguro que desea eliminar " + producto.getNombre() + "? si/no");
+    System.out.print("Esta seguro que desea eliminar " + producto.getNombre() + "? (si/no): ");
     eliminar = scanner.nextLine();
 
     if(eliminar.equalsIgnoreCase("si")){
       repositorio.eliminar(id);
-      System.out.println(producto.getNombre() + " eliminado con exito/n");
+      System.out.println(producto.getNombre() + " eliminado con exito\n");
     } else {
       System.out.println("Operacion cancelada\n");
     }

@@ -16,20 +16,26 @@ public class PedidoService {
     Pedido pedido = new Pedido();
     Producto producto;
 
-    int id = -1;
+    int id;
     int cantidad;
 
     while(true){
       System.out.print("Ingrese, de a uno, los ids de los productos que desea agregar (0 para finalizar): ");
       id = scanner.nextInt();
+      scanner.nextLine();
       if(id == 0) break;
 
       System.out.print("Ingrese la cantidad requerida de producto: ");
       cantidad = scanner.nextInt();
+      scanner.nextLine();
 
       producto = productoRepositorio.buscarProducto(id);
-      pedido.agregarProducto(producto, cantidad);
-      System.out.println("Producto agregado con exito!\n");
+      try{
+        pedido.agregarProducto(producto, cantidad);
+        System.out.println("Producto agregado con exito!\n");
+      } catch (Exception e) {
+        System.out.println("No hay suficiente stock de " + producto.getNombre() +"\n");
+      }
     }
 
     pedidoRrepositorio.agregar(pedido);

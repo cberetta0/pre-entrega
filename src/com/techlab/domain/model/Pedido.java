@@ -33,6 +33,6 @@ public class Pedido {
     for(LineaPedido linea: lineasPedido){
       System.out.println("  -" + linea.getProducto().getNombre() + ", " + linea.getCantidad() + " unidades");
     }
-    System.out.println("Total de: $" + calcularTotal());
+    System.out.println("  Total de: $" + calcularTotal() + "\n");
   }
 }

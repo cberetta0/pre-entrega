@@ -9,35 +9,27 @@ public class Main {
   public static void main(String[] args) {
 
     Scanner scanner = new Scanner(System.in);
+    ProductoService productoService = new ProductoService();
+    PedidoService pedidoService = new PedidoService();
+    int opcion;
 
-    printMenu();
-
-    int opcion = scanner.nextInt();
-    
-    while(opcion != 7){
-
-      if(opcion <= 0 || opcion > 7){
-        System.out.println("La opcion seleccionada no es valida, elija otra");
-      } else {
-        manejarOpcion(opcion);
-      }
-
+    do{
       printMenu();
       opcion = scanner.nextInt();
-    }
+      manejarOpcion(opcion, productoService, pedidoService);
+    } while(opcion != 7);
 
+    scanner.close();
     System.exit(0);
   }
 
   private static void printMenu(){
 
     System.out.println("""
-      ====================================
-      === SISTEMA DE GESTION - TECHLAB ===
-      ====================================
-      """);
-
-    System.out.println("""
+    ====================================
+    === SISTEMA DE GESTION - TECHLAB ===
+    ====================================
+    
     1) Agregar producto
     2) Listar productos
     3) Buscar/Actualizar producto
@@ -50,9 +42,7 @@ public class Main {
     System.out.print("Elija una opcion: ");
   }
 
-  private static void manejarOpcion(int opcion) {
-    ProductoService productoService = new ProductoService();
-    PedidoService pedidoService = new PedidoService();
+  private static void manejarOpcion(int opcion, ProductoService productoService, PedidoService pedidoService) {
 
     switch(opcion){
       case 1:
@@ -73,6 +63,8 @@ public class Main {
       case 6:
         pedidoService.listar();
         break;
+      default:
+        System.out.println("La opcion seleccionada no es valida, elija otra");
     }
   }
 }
